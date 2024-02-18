@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="stylesheet" href="{% static 'app/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'app/css/all.css' %}">
+    <link rel="stylesheet" href="{% static 'app/css/main.css' %}">
+</head>
+<body>
+    <h1 class = 'text-center alert alert-info' style='color:red;'>Hello,{{ user.username }}</h1>
+    <div class="container">
+        <div class="row">
+            <strong>Your First Name:</strong> <span class="bold">{{user.first_name}}</span>
+        </div>
+        <div class="row">
+            <strong>Your Last Name:</strong> <span class="bold">{{user.last_name}}</span>
+        </div>
+        <div class="row">
+            <strong>Your Full Name:</strong> <span class="bold">{{user.get_full_name}}</span>
+        </div>
+        <div class="row">
+            <strong>Your UserName:</strong> <span class="bold">{{user.username}}</span>
+        </div>
+        Want to logout from this account?
+        <a href="{% url 'account_logout' %}" class='btn btn-danger'>loggout</a>
+    </div>
+</body>
+</html>

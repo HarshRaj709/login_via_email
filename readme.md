@@ -9,7 +9,7 @@ STEP2:
 
     OPEN SETTINGS.PY IN MYPROJECT FOLDER
 
-    INSTALLED_APPS = [ 'django.contrib.admin', 'django.contrib.auth', 'django.contrib.contenttypes', 'django.contrib.sessions', 'django.contrib.messages', 'django.contrib.staticfiles', 'django.contrib.sites',
+    INSTALLED_APPS = [ 'django.contrib.admin', 'django.contrib.auth', 'django.contrib.contenttypes', 'django.contrib.sessions', 'django.contrib.messages', 'django.contrib.staticfiles', 'django.contrib.sites', #must add this 
     'myapp',
 
     'allauth',   
@@ -20,9 +20,23 @@ STEP2:
 
     AUTHENTICATION_BACKENDS = ( 'django.contrib.auth.backends.ModelBackend', 'allauth.account.auth_backends.AuthenticationBackend', )
 
-    SITE_ID = 1 LOGIN_REDIRECT_URL = '/'
+    Add this is Middleware - 'allauth.account.middleware.AccountMiddleware',
 
-    SOCIALACCOUNT_PROVIDERS = { 'google': { 'SCOPE': [ 'profile', 'email', ], 'AUTH_PARAMS': { 'access_type': 'online', } } }
+    SITE_ID = 2 
+    LOGIN_REDIRECT_URL = '/'    #where you want to land user after login, in my case i write profile page..
+    SOCIALACCOUNT_LOGIN_ON_GET = True #add this otherwise you will see ugly 'continue page'
+    ACCOUNT_LOGOUT_ON_GET = True    #add this otherwise when user try to logout then he will see want to continue page.
+
+    SOCIALACCOUNT_PROVIDERS = {
+         'google': {
+             'SCOPE': [
+                 'profile', 'email', 
+                 ], 
+                 'AUTH_PARAMS': {
+                     'access_type': 'online', 
+                     } 
+                     } 
+                     }
 
 STEP3:
 
@@ -40,7 +54,7 @@ STEP4:
 
     urlpatterns = [
 
-    path('accounts/', include('allauth.urls')), ]
+    path('accounts/', include('allauth.urls')), ] #important
 
 STEP5:
 
@@ -64,7 +78,7 @@ STEP6:
 
     6.Get the credentails
 
-STEP7: #Add social applications
+STEP7: #Add social applications in your adminpannel
 
     Provider Id: Google 
     Name: Google 
@@ -84,3 +98,5 @@ STEP8: #ADD SITEID ITS UNIQUE TO EACH CLIENTID
     print(sites.id)
 
     This will give your site id...
+
+    You can check all available functions through this link - [http://127.0.0.1:8000/accounts/]

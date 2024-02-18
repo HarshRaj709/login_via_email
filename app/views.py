@@ -59,3 +59,8 @@ def login1(request):
             return redirect('login')
     else:
         return render(request,'app/login.html')
+    
+
+def profile(request):
+    my_user = request.user
+    return render(request,'app/profile.html',{'user':my_user})

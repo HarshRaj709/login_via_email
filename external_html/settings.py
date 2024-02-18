@@ -31,13 +31,18 @@ INSTALLED_APPS = [
     'allauth.account',  
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google', #you can add multipe providers here
-    # 'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.facebook',
 ]
 
-AUTHENTICATION_BACKENDS = ( 'django.contrib.auth.backends.ModelBackend', 'allauth.account.auth_backends.AuthenticationBackend', ) #Added this..
+AUTHENTICATION_BACKENDS = ( 'django.contrib.auth.backends.ModelBackend', 
+                           'allauth.account.auth_backends.AuthenticationBackend',
+                             ) #Added this..
+
 
 SITE_ID = 2
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = 'profile' #this url defines where you will land after login/Signup through 3rd party 
+SOCIALACCOUNT_LOGIN_ON_GET = True
+ACCOUNT_LOGOUT_ON_GET = True
 
 SOCIALACCOUNT_PROVIDERS = {
     'google': {

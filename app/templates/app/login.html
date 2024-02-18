@@ -1,15 +1,28 @@
 <!DOCTYPE html>
 {% load static %}
+{% load socialaccount %}
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login</title>
+  <link rel="stylesheet" href="{% static 'app/css/bootstrap.css' %}">
+  <link rel="stylesheet" href="{% static 'app/css/main.css' %}">
+  <link rel="stylesheet" href="{% static 'app/css/all.css' %}">
   <link rel="stylesheet" href="{% static 'app/css/login.css' %}"> <!-- Link to your CSS file for styling -->
 </head>
 <body>
   <div class="container">
     <h2>Login</h2>
+    <div class="google-login mt-1 mb-1">
+      <button>
+        <a href="{% provider_login_url 'google' method='oauth2' %}">
+          <img src='{% static 'app/images/google.jpg' %}' alt="Google Logo" class="google-logo" width='30px'>
+        <span class='login'>Login with Google</span>
+        </a>
+      </button>
+    </div>
+    <strong class='text-center alert'>OR</strong>
     <form action="{% url 'login' %}" method="POST">
         {% csrf_token %}
       <div class="form-group">

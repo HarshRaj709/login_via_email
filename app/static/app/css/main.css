@@ -78,4 +78,9 @@ body {
   .text-center{
     display: block;
   }
+  .bold{
+    font-weight: 500;
+    color: red;
+    margin-left: 2px;
+  }
   
