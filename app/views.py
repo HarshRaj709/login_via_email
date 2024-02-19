@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.contrib.auth import login,logout,authenticate
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
@@ -46,21 +47,24 @@ def signup(request):
         return render(request,'app/Signup.html')
     
 def login1(request):
-    if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(username=username,password=password)
-        if user is not None:
-            login(request,user)
-            messages.success(request,'Login Successful')
-            return redirect('login')
+    if not request.user.is_authenticated:
+        if request.method == 'POST':
+            username = request.POST['username']
+            password = request.POST['password']
+            user = authenticate(username=username,password=password)
+            if user is not None:
+                login(request,user)
+                messages.success(request,'Login Successful')
+                return redirect('profile')
+            else:
+                messages.error(request,'Wrong Credentials')
+                return redirect('login')
         else:
-            messages.error(request,'Wrong Credentials')
-            return redirect('login')
+            return render(request,'app/login.html')
     else:
-        return render(request,'app/login.html')
+        return redirect('profile')
     
-
+@login_required(login_url='login')  #here you can specify your specific login url rather than to specify it in settings.py
 def profile(request):
     my_user = request.user
     return render(request,'app/profile.html',{'user':my_user})

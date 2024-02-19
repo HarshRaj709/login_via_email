@@ -100,3 +100,44 @@ STEP8: #ADD SITEID ITS UNIQUE TO EACH CLIENTID
     This will give your site id...
 
     You can check all available functions through this link - [http://127.0.0.1:8000/accounts/]
+
+
+    -------------------------------------------------------------------------------------------------------------
+
+                --------------------> Now for GIthub <-------------------------
+
+
+    # settings.py
+
+INSTALLED_APPS = [
+    ...
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.github', #just add this 
+    ...
+]
+
+AUTHENTICATION_BACKENDS = [
+    ...
+    'allauth.account.auth_backends.AuthenticationBackend', #already added for google 
+    ...
+]
+
+SITE_ID = 1  # Set your SITE_ID, if not set already
+
+SOCIALACCOUNT_PROVIDERS = {
+    'github': {
+        'SCOPE': ['user', 'repo'],
+        'VERIFIED_EMAIL': True,
+    }
+}
+
+    App registration (get your key and secret here)
+    https://github.com/settings/applications/new
+
+    
+    Development callback URL
+    http://127.0.0.1:8000/accounts/github/login/callback/
+
+else everything is same...

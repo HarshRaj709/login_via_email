@@ -23,6 +23,15 @@
         </a>
       </button>
     </div>
+    <hr>
+    <div class="google-login mt-1 mb-1">
+      <button>
+        <a href="{% provider_login_url 'github' method='oauth2' %}">
+          <img src='{% static 'app/images/github.png' %}' alt="Google Logo" class="google-logo" width='30px'>
+        <span>Login with Github</span>
+        </a>
+      </button>
+    </div>
     <strong class='text-center alert'>OR</strong>
     {% for message in messages %}
       <span class='{{ message.tags }}'>{{ message }}</span>

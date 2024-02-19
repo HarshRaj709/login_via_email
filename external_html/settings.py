@@ -25,13 +25,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.sites',
+    'django.contrib.sites',     #must add this
     'app',
     'allauth',   
     'allauth.account',  
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google', #you can add multipe providers here
-    'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.github',
 ]
 
 AUTHENTICATION_BACKENDS = ( 'django.contrib.auth.backends.ModelBackend', 
@@ -43,6 +43,7 @@ SITE_ID = 2
 LOGIN_REDIRECT_URL = 'profile' #this url defines where you will land after login/Signup through 3rd party 
 SOCIALACCOUNT_LOGIN_ON_GET = True
 ACCOUNT_LOGOUT_ON_GET = True
+# LOGIN_URL = 'login'   #here you have to specify the login url if you are using @login_required decorator, otherwise specify in decorator itself..
 
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
@@ -53,6 +54,10 @@ SOCIALACCOUNT_PROVIDERS = {
         'AUTH_PARAMS': {
             'access_type': 'online',
         }
+    },
+    'github': {
+        'SCOPE': ['user', 'repo'],
+        'VERIFIED_EMAIL': True,
     }
 }
 
@@ -78,7 +83,7 @@ TEMPLATES = [
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
-                'django.template.context_processors.request',
+                'django.template.context_processors.request', #must be present
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
