@@ -102,12 +102,11 @@ STEP8: #ADD SITEID ITS UNIQUE TO EACH CLIENTID
     You can check all available functions through this link - [http://127.0.0.1:8000/accounts/]
 
 
-    -------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------
+Now for GIthub <-------------------------
 
-                --------------------> Now for GIthub <-------------------------
 
-
-    # settings.py
+# settings.py
 
 INSTALLED_APPS = [
     ...
