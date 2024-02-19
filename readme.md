@@ -141,4 +141,4 @@ SOCIALACCOUNT_PROVIDERS = {
 
 else everything is same...
 
-Check out Full Django Notes on my repo:[]
+Check out Full Django Notes on my repo:[https://github.com/HarshRaj709/Django_Full_course_notes]
