@@ -140,3 +140,5 @@ SOCIALACCOUNT_PROVIDERS = {
     http://127.0.0.1:8000/accounts/github/login/callback/
 
 else everything is same...
+
+Check out Full Django Notes on my repo:[https://github.com/HarshRaj709/Django_Full_course_notes]
