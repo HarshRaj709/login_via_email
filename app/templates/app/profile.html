@@ -24,6 +24,9 @@
         <div class="row">
             <strong>Your UserName:</strong> <span class="bold">{{user.username}}</span>
         </div>
+        <div class="row">
+            <strong>Your Email:</strong> <span class="bold">{{user.email}}</span>
+        </div>
         Want to logout from this account?
         <a href="{% url 'account_logout' %}" class='btn btn-danger'>loggout</a>
     </div>
