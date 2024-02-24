@@ -30,5 +30,50 @@
         Want to logout from this account?
         <a href="{% url 'account_logout' %}" class='btn btn-danger'>loggout</a>
     </div>
+    <hr class='line'>
+    <div class="text-center alert-warning">
+        <h1>Want to check other Registered Users?</h1>        
+    </div>
+    <div class="container mt-4">
+        <div class="col justify-content-center">
+          <div class="col-md-12">
+            <form class="form-inline" action='{% url 'search' %}' method = 'post'>
+                {% csrf_token %}
+              <div class="input-group">
+                <h2>Type user's <strong>first name</strong> or <strong>email</strong> or <strong>last Name</strong> to find him.. or you can see all users by entering <strong>'all'</strong></h2>
+                <input class="form-control search-bar" type="search" name='searching' placeholder="{{search}}" aria-label="Search">
+                <div class="input-group-append">
+                  <button class="btn btn-outline-success" type="submit">Search</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      {% if users %}
+      <div class="container mt-4">
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">Email</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+              <tr>
+                <th scope="row">{{user.id}}</th>
+                <td>{{user.first_name}}</td>
+                <td>{{user.last_name}}</td>
+                <td>{{user.email}}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+      </div>
+      {% endif %}
 </body>
 </html>

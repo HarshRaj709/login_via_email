@@ -6,6 +6,7 @@ from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 from django.contrib.auth.decorators import login_required
 from .forms import UserRegistration,UserLogin,ProfileUser
+from django.db.models import Q
 
 
 # Create your views here.
@@ -120,3 +121,14 @@ def login1(request):
 def profile(request):
     my_user = request.user
     return render(request,'app/profile.html',{'user':my_user})
+
+
+def search_bar(request):
+    search = request.POST['searching']
+    if not search == 'all':
+        my_user = User.objects.filter(first_name__icontains=search)     # for first_name query
+        # my_user = User.objects.all()  #to get all users
+        my_user = User.objects.filter(Q(first_name=search)| Q(last_name=search) | Q(email=search)) # use to handle complex query.
+    else:
+        my_user=User.objects.all()
+    return render(request,'app/profile.html',{'users':my_user,'search':search})

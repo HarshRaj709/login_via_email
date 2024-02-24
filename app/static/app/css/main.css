@@ -14,6 +14,14 @@ body {
     border-radius: 10px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
   }
+
+  .mt-4{
+    max-width: 80%;
+  }
+
+  .search-bar{
+    height: 47px;
+  }
   
   
   h2 {
@@ -82,5 +90,14 @@ body {
     font-weight: 500;
     color: red;
     margin-left: 2px;
+  }
+
+  /* .line{
+    color: red;
+    height:20px;
+  } */
+
+  .search_bar{
+    width:400px;
   }
   
