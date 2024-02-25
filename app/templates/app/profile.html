@@ -35,13 +35,21 @@
         <h1>Want to check other Registered Users?</h1>        
     </div>
     <div class="container mt-4">
+      {% if form.errors %}
+      {% for field in form %}
+        {% for error in field.errors %}
+          <div class="alert alert-danger">{{ error }}</div>
+        {% endfor %}
+      {% endfor %}
+    {% endif %}
         <div class="col justify-content-center">
           <div class="col-md-12">
             <form class="form-inline" action='{% url 'search' %}' method = 'post'>
                 {% csrf_token %}
               <div class="input-group">
                 <h2>Type user's <strong>first name</strong> or <strong>email</strong> or <strong>last Name</strong> to find him.. or you can see all users by entering <strong>'all'</strong></h2>
-                <input class="form-control search-bar" type="search" name='searching' placeholder="{{search}}" aria-label="Search">
+                {% comment %} <input class="form-control search-bar" type="search" name='search' placeholder="{{search}}" aria-label="Search"> {% endcomment %} <!--this will not add our query in search bar if we use form -->
+                <input class="form-control search-bar" type="search" name='search' value='{{forms.search.value| default:''}}' aria-label="Search">
                 <div class="input-group-append">
                   <button class="btn btn-outline-success" type="submit">Search</button>
                 </div>

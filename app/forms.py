@@ -35,4 +35,13 @@ class ProfileUser(forms.ModelForm):
         model = User
         fields = ['first_name','last_name','username','email']
         # widgets = {'first_name':{'disabled':True}}
+
+class SearchUser(forms.Form):
+    search = forms.CharField(max_length=200)
+
+    def search_empty(self):     #it will not run automatically we need to explicitly call it
+        empty = self.cleaned_data['search']
+        if not empty:
+            raise forms.ValidationError('please enter value')
+        return empty
     

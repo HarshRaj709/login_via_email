@@ -5,7 +5,7 @@ from django.contrib.auth import login,logout,authenticate
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 from django.contrib.auth.decorators import login_required
-from .forms import UserRegistration,UserLogin,ProfileUser
+from .forms import UserRegistration,UserLogin,ProfileUser,SearchUser
 from django.db.models import Q
 
 
@@ -123,12 +123,32 @@ def profile(request):
     return render(request,'app/profile.html',{'user':my_user})
 
 
+# def search_bar(request):
+#     search = request.POST['search']
+#     if not search == 'all':
+#         # my_user = User.objects.filter(first_name__icontains=search)     # for first_name query
+#         # my_user = User.objects.all()  #to get all users
+#         my_user = User.objects.filter(Q(first_name__icontains=search)| Q(last_name=search) | Q(email=search)) # use to handle complex query.
+#     else:
+#         my_user=User.objects.all()
+#     return render(request,'app/profile.html',{'users':my_user,'search':search})
+
+
+
 def search_bar(request):
-    search = request.POST['searching']
-    if not search == 'all':
-        my_user = User.objects.filter(first_name__icontains=search)     # for first_name query
-        # my_user = User.objects.all()  #to get all users
-        my_user = User.objects.filter(Q(first_name=search)| Q(last_name=search) | Q(email=search)) # use to handle complex query.
+    my_user = None  # Initialize my_user variable
+    if request.method == 'POST':
+        fm = SearchUser(request.POST)
+        if fm.is_valid():
+            # searching = fm.cleaned_data.get('search')   #isko humlo field ke naam pe dena pd rha h.
+            searching = fm.cleaned_data['search']
+            if searching != 'all':  # Adjusted condition
+                # my_user = User.objects.filter(Q(first_name__icontains=searching) | Q(last_name__icontains=searching) | Q(email__icontains=searching)) #isme kya problem h ki ye input data ko find krega ki kisime bhi h ya nhi : jesse agar hum 'harsh' search kre to ye email me bhi search krdega.
+                my_user = User.objects.filter(Q(first_name__icontains=searching) | Q(last_name__icontains=searching) | Q(email=searching))
+            else:
+                my_user = User.objects.all()
+        else:
+            return render(request, 'app/profile.html', {'form': fm})
     else:
-        my_user=User.objects.all()
-    return render(request,'app/profile.html',{'users':my_user,'search':search})
+        fm = SearchUser()
+    return render(request, 'app/profile.html', {'users': my_user, 'form': fm})
